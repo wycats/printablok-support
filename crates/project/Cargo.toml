@@ -1,0 +1,17 @@
+[package]
+name = "project"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+amplify = "3.9.1"
+amplify_derive = "2.9.0"
+cargo = "0.56.0"
+indexmap = "1.7.0"
+path_abs = "0.5.1"
+phf = "0.10.0"
+phf_macros = "0.10.0"
+phf_shared = "0.10.0"
+touch = "0.0.1"

@@ -1,0 +1,14 @@
+[package]
+name = "render_stl"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+amplify = "3.9.1"
+amplify_derive = "2.9.0"
+colorsys = "0.6.4"
+path_abs = "0.5.1"
+rpt = "0.2.1"
+project = { path = "../project" }
