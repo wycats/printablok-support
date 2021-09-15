@@ -4,10 +4,24 @@ use path_abs::{PathAbs, PathInfo};
 
 use crate::utils::file::FileType;
 
+use super::command::CommandExecution;
+
 #[derive(Debug)]
 pub enum ProjectError {
-    MissingFile { path: PathAbs, kind: FileType },
-    UnexpectedPresentFile { path: PathAbs, kind: FileType },
+    MissingFile {
+        path: PathAbs,
+        kind: FileType,
+    },
+    UnexpectedPresentFile {
+        path: PathAbs,
+        kind: FileType,
+    },
+    FailedExec {
+        command: CommandExecution,
+        code: i32,
+        stdout: String,
+        stderr: String,
+    },
 }
 
 impl Display for ProjectError {
@@ -18,6 +32,21 @@ impl Display for ProjectError {
             }
             ProjectError::UnexpectedPresentFile { path, kind } => {
                 write!(f, "Unexpectedly present {}: {}", kind, path.display())
+            }
+            ProjectError::FailedExec {
+                command,
+                code,
+                stdout,
+                stderr,
+            } => {
+                write!(
+                    f,
+                    "Command execution failed\ncommand  :{}\nexit code: {}\n== STDOUT ==\n{}\n== STDERR ==\n{}",
+                    command,
+                    code,
+                    stdout,
+                    stderr
+                )
             }
         }
     }

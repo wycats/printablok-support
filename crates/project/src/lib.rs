@@ -76,8 +76,6 @@ where
     }
 }
 
-// pub type PathMap<P: ProjectPath> = phf::Map<&'static str, AbsolutePath<P>>;
-
 #[derive(Debug)]
 pub struct PathMap<Key, P>
 where

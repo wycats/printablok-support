@@ -5,6 +5,7 @@ use std::{
 
 use amplify_derive::Display;
 use path_abs::{PathAbs, PathDir, PathFile, PathInfo, PathOps};
+use serde::{Deserialize, Serialize};
 
 use crate::utils::{
     error::ProjectError,
@@ -52,12 +53,6 @@ impl AbsoluteRegularFile {
     }
 }
 
-impl AsRef<Path> for AbsoluteRegularFile {
-    fn as_ref(&self) -> &Path {
-        self.path.as_path()
-    }
-}
-
 #[derive(Clone, Display)]
 #[display(AbsoluteDir::print)]
 pub struct AbsoluteDir {
@@ -86,12 +81,6 @@ impl AbsoluteDir {
 
     pub fn verify(self) -> Fallible<AbsoluteDir> {
         AbsoluteDir::verified(self.path)
-    }
-}
-
-impl AsRef<Path> for AbsoluteDir {
-    fn as_ref(&self) -> &Path {
-        self.path.as_path()
     }
 }
 
@@ -297,15 +286,6 @@ where
     expectation: FileExpectation,
 }
 
-impl<P> AsRef<Path> for AbsolutePath<P>
-where
-    P: ProjectPath,
-{
-    fn as_ref(&self) -> &Path {
-        self.path.path().as_path()
-    }
-}
-
 impl<P> Debug for AbsolutePath<P>
 where
     P: ProjectPath,
@@ -366,6 +346,12 @@ macro_rules! as_path {
     ($ty:ty) => {
         impl AsPath for $ty {
             fn as_path(&self) -> &Path {
+                self.path.as_path()
+            }
+        }
+
+        impl AsRef<Path> for $ty {
+            fn as_ref(&self) -> &Path {
                 self.path.as_path()
             }
         }
