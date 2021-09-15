@@ -12,15 +12,20 @@ use crate::utils::{
     file::FileType,
 };
 
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone)]
 pub enum FileExpectation {
     /// Expect this path to exist. If it doesn't exist, it's an error.
     MustAlreadyExist,
     /// Expect this path not to exist. If it exists, it's an error.
     MayNotAlreadyExist,
     /// This path may or may not exist. If it doesn't exist, make it.
-    #[default]
     Touch,
+}
+
+impl Default for FileExpectation {
+    fn default() -> Self {
+        FileExpectation::Touch
+    }
 }
 
 pub type Touch<T> = fn(&PathAbs) -> Result<T, Failure>;
